@@ -1,0 +1,87 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "media-vault"
+dynamic = ["version"]
+description = 'Tool for backing up media files'
+readme = "README.md"
+requires-python = ">=3.8"
+license = "MIT"
+keywords = []
+authors = [
+  { name = "Martin Majlis", email = "martin@majlis.cz" },
+]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+dependencies = [
+  "click",
+  "aiofiles",
+  "exifread",
+  "pytz"
+]
+
+[project.urls]
+Documentation = "https://github.com/Martin Majlis/media-vault#readme"
+Issues = "https://github.com/Martin Majlis/media-vault/issues"
+Source = "https://github.com/Martin Majlis/media-vault"
+
+[project.scripts]
+media-vault = "media_vault:mvu"
+
+[tool.hatch.version]
+path = "media_vault/__about__.py"
+
+[tool.hatch.envs.types]
+extra-dependencies = [
+  "mypy>=1.0.0",
+]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:media_vault tests}"
+
+[tool.hatch.build.targets.wheel]
+include = ["media_vault/*"]
+[tool.hatch.build.targets.sdist]
+include = ["media_vault/*"]
+
+
+[tool.hatch.scripts]
+mvu = "media_vault"
+
+[tool.coverage.run]
+source_pkgs = ["media_vault", "tests"]
+branch = true
+parallel = true
+omit = [
+  "media_vault/__about__.py",
+]
+
+[tool.coverage.paths]
+media_vault = ["media_vault", "*/media_vault"]
+tests = ["tests", "*/media-vault/tests"]
+
+[tool.coverage.report]
+exclude_lines = [
+  "no cov",
+  "if __name__ == .__main__.:",
+  "if TYPE_CHECKING:",
+]
+
+
+[tool.hatch.envs.lint]
+detached = true
+dependencies = [
+  "black>=23.1.0",
+  "mypy>=1.0.0",
+  "ruff>=0.0.243",
+]
