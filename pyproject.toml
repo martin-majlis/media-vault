@@ -42,13 +42,6 @@ media-vault = "media_vault:mvu"
 [tool.hatch.version]
 path = "media_vault/__about__.py"
 
-[tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:media_vault tests}"
-
 [tool.hatch.build.targets.wheel]
 include = ["media_vault/*"]
 [tool.hatch.build.targets.sdist]
@@ -84,4 +77,23 @@ dependencies = [
   "black>=23.1.0",
   "mypy>=1.0.0",
   "ruff>=0.0.243",
+  "pyupgrade>=3.3.1",
+]
+[tool.hatch.envs.lint.scripts]
+style = [
+#  "ruff {args:.}",
+  "black --check --diff {args:.}",
+]
+fmt = [
+  "black {args:.}",
+#  "ruff --fix {args:.}",
+  "style",
+]
+typing = "mypy --install-types --non-interactive {args:media_vault tests}"
+upgrade = "pyupgrade --py312-plus {args:./**/*.py}"
+all = [
+  "upgrade",
+  "fmt",
+  "style",
+  "typing",
 ]

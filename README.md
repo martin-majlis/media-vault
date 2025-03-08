@@ -7,7 +7,7 @@ Tool for backing up media files
 
 ```bash
 hatch shell
-hatch build && pip install . && media-vault hello
+hatch build && pip install . && media-vault version
 ```
 
 ### External Drive
@@ -18,6 +18,6 @@ sudo mount -t ntfs-3g /dev/sdc1 /mnt
 ## Development
 
 ```bash
-hatch run types:check
+hatch -v run lint:all
 hatch fmt
 ```
