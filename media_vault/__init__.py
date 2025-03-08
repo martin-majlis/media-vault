@@ -249,8 +249,8 @@ def backup(
 
             created_at = created_at.replace(":", "-").replace(" ", "T")
 
-            new_filename = f"{created_at}_{md5_hash}{file_path.suffix}".replace(
-                " ", "_"
+            new_filename = (
+                f"{created_at}_{md5_hash}".replace(" ", "_") + f"_{file_path.name}"
             )
 
             # Copy file to the destination directory
