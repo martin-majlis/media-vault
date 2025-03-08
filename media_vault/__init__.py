@@ -5,6 +5,7 @@ import hashlib
 import io
 import json
 import os
+import shutil
 import sqlite3
 from datetime import datetime
 from pathlib import Path
@@ -256,6 +257,8 @@ def backup(
             dest_path = dest_dir / new_filename
             async with aiofiles.open(dest_path, "wb") as dest:
                 await dest.write(file_data)
+            # preserve statistics
+            shutil.copystat(file_path, dest_path)
 
             # Update statistics
             processed_files += 1
