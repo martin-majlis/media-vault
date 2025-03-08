@@ -19,7 +19,7 @@ import pytz
 
 from media_vault.__about__ import __version__
 
-DB_NAME = "media-vault.db"
+DB_NAME = ".media-vault.db"
 
 
 @click.group()
